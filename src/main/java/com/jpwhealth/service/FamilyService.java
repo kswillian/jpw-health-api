@@ -4,48 +4,21 @@ import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.dto.FamilyDetailedDto;
 import com.jpwhealth.domain.dto.FamilyDto;
 import com.jpwhealth.domain.form.FamilyForm;
-import com.jpwhealth.repository.FamilyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jpwhealth.domain.form.FamilyFormUpdate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class FamilyService {
+public interface FamilyService {
 
-    @Autowired
-    private FamilyRepository familyRepository;
+    List<FamilyDto> getAll();
 
-    public List<FamilyDto> getAll(){
-        List<Family> families = familyRepository.findAll();
-        return FamilyDto.convertDtoToModel(families);
-    }
+    ResponseEntity<FamilyDetailedDto> getById(Long id);
 
-    public ResponseEntity<FamilyDetailedDto> getById(Long id){
-        Optional<Family> family = familyRepository.findById(id);
+    Family register(FamilyForm familyForm);
 
-        if(family.isPresent()){
-            return ResponseEntity.ok().body(new FamilyDetailedDto(family.get()));
-        }
+    ResponseEntity<FamilyDto> update(FamilyFormUpdate familyFormUpdate);
 
-        return ResponseEntity.notFound().build();
-    }
-
-    public Family register(FamilyForm familyForm){
-
-        if(familyRepository.existsByResponsibleCPF(familyForm.getResponsibleCPF())){
-            throw new RuntimeException(
-                    String.format("O CPF %s já se encontra cadastrado!", familyForm.getResponsibleCPF())
-            );
-        }
-
-        Family family = FamilyForm.convertFormToModel(familyForm);
-        familyRepository.save(family);
-
-        return family;
-
-    }
+    ResponseEntity delete(Long id);
 
 }
