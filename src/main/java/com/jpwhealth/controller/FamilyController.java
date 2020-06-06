@@ -30,9 +30,6 @@ public class FamilyController {
 
     @PostMapping("/family")
     public ResponseEntity<FamilyDto> register(@Valid @RequestBody FamilyForm familyForm){
-        System.out.println("Controller");
-        System.out.println("::::" + familyForm.toString());
-
         Family family = familyService.register(familyForm);
         return ResponseEntity.status(HttpStatus.CREATED).body(new FamilyDto(family));
     }
