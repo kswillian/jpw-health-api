@@ -2,13 +2,17 @@ package com.jpwhealth.domain.form;
 
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.Sex;
+import com.jpwhealth.domain.dto.FamilyDto;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FamilyForm {
 
@@ -47,10 +51,10 @@ public class FamilyForm {
     @NotNull
     private String city;
 
-    private Long latitude;
-    private Long longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
-    public FamilyForm(@NotBlank String familyName, @NotBlank String familyResponsible, @NotBlank String responsibleCPF, @NotBlank String responsibleRG, @NotBlank LocalDateTime dateBirth, Integer adultsNumber, Integer childrenNumber, Integer unemployedNumber, @NotNull Long familyFinance, @NotBlank Sex responsibleSex, @NotBlank String uf, @NotBlank String city, Long latitude, Long longitude) {
+    public FamilyForm(@NotBlank String familyName, @NotBlank String familyResponsible, @NotBlank String responsibleCPF, @NotBlank String responsibleRG, @NotBlank LocalDateTime dateBirth, Integer adultsNumber, Integer childrenNumber, Integer unemployedNumber, @NotNull Long familyFinance, @NotBlank Sex responsibleSex, @NotBlank String uf, @NotBlank String city, BigDecimal latitude, BigDecimal longitude) {
         this.familyName = familyName;
         this.familyResponsible = familyResponsible;
         this.responsibleCPF = responsibleCPF;
@@ -115,11 +119,11 @@ public class FamilyForm {
         return city;
     }
 
-    public Long getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public Long getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 

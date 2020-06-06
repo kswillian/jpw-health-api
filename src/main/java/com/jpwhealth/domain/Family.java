@@ -1,9 +1,10 @@
 package com.jpwhealth.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,8 +27,15 @@ public class Family {
     private Sex responsibleSex = Sex.UNDEFINED;
     private String uf;
     private String city;
-    private Long latitude;
-    private Long longitude;
+
+    @Column(precision = 10, scale = 4)
+    @Type(type = "big_decimal")
+    private BigDecimal latitude;
+
+    @Column(precision = 10, scale = 4)
+    @Type(type = "big_decimal")
+    private BigDecimal longitude;
+
     private LocalDateTime dateRegister = LocalDateTime.now();
 
     public Family() {
@@ -141,19 +149,19 @@ public class Family {
         this.city = city;
     }
 
-    public Long getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
-    public Long getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 

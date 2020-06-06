@@ -3,6 +3,7 @@ package com.jpwhealth.domain.dto;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.Sex;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class FamilyDetailedDto {
@@ -20,8 +21,8 @@ public class FamilyDetailedDto {
     private Sex responsibleSex;
     private String uf;
     private String city;
-    private Long latitude;
-    private Long longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private LocalDateTime dateRegister;
 
     public FamilyDetailedDto(Family family) {
@@ -95,11 +96,11 @@ public class FamilyDetailedDto {
         return city;
     }
 
-    public Long getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public Long getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
