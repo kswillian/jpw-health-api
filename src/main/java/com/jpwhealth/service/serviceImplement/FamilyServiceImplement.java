@@ -23,7 +23,7 @@ public class FamilyServiceImplement implements FamilyService {
     @Override
     public List<FamilyDto> getAll() {
         List<Family> families = familyRepository.findAll();
-        return FamilyDto.convertDtoToModel(families);
+        return FamilyDto.convertModelToDto(families);
     }
 
     @Override
@@ -63,6 +63,7 @@ public class FamilyServiceImplement implements FamilyService {
 
         if(family.isPresent()){
             Family familyUpdate = FamilyFormUpdate.convertFormToModel(familyFormUpdate);
+            familyRepository.save(familyUpdate);
             return ResponseEntity.ok().body(new FamilyDto(familyUpdate));
         }
 

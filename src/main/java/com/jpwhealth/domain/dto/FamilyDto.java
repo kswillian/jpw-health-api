@@ -41,7 +41,7 @@ public class FamilyDto {
         return uf;
     }
 
-    public static List<FamilyDto> convertDtoToModel(List<Family> families) {
+    public static List<FamilyDto> convertModelToDto(List<Family> families) {
         return families.stream().map(FamilyDto::new).collect(Collectors.toList());
     }
 
