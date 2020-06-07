@@ -2,9 +2,14 @@ package com.jpwhealth.domain.form;
 
 import com.jpwhealth.domain.Topic;
 
+import javax.validation.constraints.NotNull;
+
 public class TopicFormUpdate {
 
+    @NotNull
     private Long id;
+
+    @NotNull
     private String name;
 
     public TopicFormUpdate(Long id, String name) {

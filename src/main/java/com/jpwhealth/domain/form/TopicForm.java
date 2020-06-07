@@ -9,8 +9,7 @@ public class TopicForm {
     @NotNull
     private String name;
 
-    public TopicForm(@NotNull String name) {
-        this.name = name;
+    public TopicForm() {
     }
 
     public String getName() {

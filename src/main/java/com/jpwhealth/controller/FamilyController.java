@@ -41,7 +41,7 @@ public class FamilyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new FamilyDto(family));
     }
 
-    @ApiOperation(value = "Atualiza o cadastro de uma familia", notes = "Atualizados o dados cadastrais da familia", response = FamilyDto.class, responseContainer = "Object" )
+    @ApiOperation(value = "Atualiza o cadastro de uma familia", notes = "Atualiza os dados cadastrais da familia", response = FamilyDto.class, responseContainer = "Object" )
     @PutMapping("/family")
     public ResponseEntity<FamilyDto> update(@Valid  @RequestBody FamilyFormUpdate familyFormUpdate){
         return familyService.update(familyFormUpdate);
