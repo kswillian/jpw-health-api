@@ -41,9 +41,9 @@ public class NewsController {
     }
 
     @ApiOperation(value = "Atualiza o cadastro de uma notícia", notes = "Atualiza os dados cadastrais da notícia", response = NewsDto.class, responseContainer = "Object" )
-    @PutMapping("/news/{id}")
-    public ResponseEntity<NewsDto> update(@PathVariable Long id, @Valid @RequestBody NewsFormUpdate newsFormUpdate){
-        return newsService.update(id, newsFormUpdate);
+    @PutMapping("/news")
+    public ResponseEntity<NewsDto> update(@Valid @RequestBody NewsFormUpdate newsFormUpdate){
+        return newsService.update(newsFormUpdate);
     }
 
     @ApiOperation(value = "Remove o cadastro de notícia", notes = "Remove o registro cadastral da notícia informada", response = ResponseEntity.class, responseContainer = "Object" )

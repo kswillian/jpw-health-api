@@ -10,6 +10,9 @@ import java.util.List;
 public class NewsFormUpdate {
 
     @NotNull
+    private Long id;
+
+    @NotNull
     private String title;
 
     @NotNull
@@ -28,13 +31,18 @@ public class NewsFormUpdate {
     @NumberFormat
     private List<Long> topicId;
 
-    public NewsFormUpdate(@NotNull String title, @NotNull String subTitle, @NotNull String author, @NotNull String message, @NotNull String imageUrl, @NotNull List<Long> topicId) {
+    public NewsFormUpdate(@NotNull Long id, @NotNull String title, @NotNull String subTitle, @NotNull String author, @NotNull String message, @NotNull String imageUrl, @NotNull List<Long> topicId) {
+        this.id = id;
         this.title = title;
         this.subTitle = subTitle;
         this.author = author;
         this.message = message;
         this.imageUrl = imageUrl;
         this.topicId = topicId;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -63,6 +71,7 @@ public class NewsFormUpdate {
 
     public static News convertFormToModel(NewsFormUpdate newsFormUpdate, List<Topic> topics){
         News news = new News();
+        news.setId(newsFormUpdate.getId());
         news.setTitle(newsFormUpdate.getTitle());
         news.setSubTitle(newsFormUpdate.getSubTitle());
         news.setAuthor(newsFormUpdate.getAuthor());

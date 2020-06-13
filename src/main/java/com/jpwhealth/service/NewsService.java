@@ -17,7 +17,7 @@ public interface NewsService {
 
     News register(NewsForm newsForm);
 
-    ResponseEntity<NewsDto> update(Long id, NewsFormUpdate newsFormUpdate);
+    ResponseEntity<NewsDto> update(NewsFormUpdate newsFormUpdate);
 
     ResponseEntity delete(Long id);
 

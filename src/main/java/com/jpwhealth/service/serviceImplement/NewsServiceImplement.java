@@ -1,14 +1,11 @@
 package com.jpwhealth.service.serviceImplement;
 
-import com.google.common.collect.ImmutableSet;
 import com.jpwhealth.domain.News;
 import com.jpwhealth.domain.Topic;
 import com.jpwhealth.domain.dto.NewsDetailedDto;
 import com.jpwhealth.domain.dto.NewsDto;
-import com.jpwhealth.domain.dto.TopicDto;
 import com.jpwhealth.domain.form.NewsForm;
 import com.jpwhealth.domain.form.NewsFormUpdate;
-import com.jpwhealth.domain.form.TopicFormUpdate;
 import com.jpwhealth.repository.NewsRepository;
 import com.jpwhealth.repository.TopicRepository;
 import com.jpwhealth.service.NewsService;
@@ -17,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import static com.google.common.collect.ImmutableSet.*;
 
 @Service
 public class NewsServiceImplement implements NewsService {
@@ -60,10 +55,10 @@ public class NewsServiceImplement implements NewsService {
     }
 
     @Override
-    public ResponseEntity<NewsDto> update(Long id, NewsFormUpdate newsFormUpdate) {
+    public ResponseEntity<NewsDto> update(NewsFormUpdate newsFormUpdate) {
 
-        Optional<News> news = Optional.ofNullable(newsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("A news %s não foi encontrada", id))));
+        Optional<News> news = Optional.ofNullable(newsRepository.findById(newsFormUpdate.getId())
+                .orElseThrow(() -> new RuntimeException(String.format("A news %s não foi encontrada", newsFormUpdate.getId()))));
 
         List<Topic> topics = topicRepository.findAllById(newsFormUpdate.getTopicId());
 

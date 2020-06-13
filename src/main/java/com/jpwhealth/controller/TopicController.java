@@ -1,7 +1,6 @@
 package com.jpwhealth.controller;
 
 import com.jpwhealth.domain.Topic;
-import com.jpwhealth.domain.dto.FamilyDto;
 import com.jpwhealth.domain.dto.TopicDetailedDto;
 import com.jpwhealth.domain.dto.TopicDto;
 import com.jpwhealth.domain.form.TopicForm;
