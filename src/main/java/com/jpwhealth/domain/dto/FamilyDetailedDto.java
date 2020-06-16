@@ -5,6 +5,8 @@ import com.jpwhealth.domain.Sex;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FamilyDetailedDto {
 
@@ -108,4 +110,7 @@ public class FamilyDetailedDto {
         return dateRegister;
     }
 
+    public static List<FamilyDto> convertModelToDto(List<Family> families) {
+        return families.stream().map(FamilyDto::new).collect(Collectors.toList());
+    }
 }

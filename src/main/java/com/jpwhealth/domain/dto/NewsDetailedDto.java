@@ -5,6 +5,7 @@ import com.jpwhealth.domain.Topic;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NewsDetailedDto {
 
@@ -60,5 +61,8 @@ public class NewsDetailedDto {
         return dateRegister;
     }
 
+    public static List<NewsDto> convertModelToDto(List<News> newsList) {
+        return newsList.stream().map(NewsDto::new).collect(Collectors.toList());
+    }
 
 }

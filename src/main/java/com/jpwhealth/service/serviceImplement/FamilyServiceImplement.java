@@ -23,7 +23,7 @@ public class FamilyServiceImplement implements FamilyService {
     @Override
     public List<FamilyDto> getAll() {
         List<Family> families = familyRepository.findAll();
-        return FamilyDto.convertModelToDto(families);
+        return FamilyDetailedDto.convertModelToDto(families);
     }
 
     @Override

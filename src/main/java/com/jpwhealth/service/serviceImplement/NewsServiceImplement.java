@@ -27,7 +27,7 @@ public class NewsServiceImplement implements NewsService {
     @Override
     public List<NewsDto> getAll() {
         List<News> newsList = newsRepository.findAll();
-        return NewsDto.convertModelToDto(newsList);
+        return NewsDetailedDto.convertModelToDto(newsList);
     }
 
     @Override

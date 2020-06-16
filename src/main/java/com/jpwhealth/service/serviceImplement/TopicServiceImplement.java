@@ -23,7 +23,7 @@ public class TopicServiceImplement implements TopicService {
     @Override
     public List<TopicDto> getAll() {
         List<Topic> topics = topicRepository.findAll();
-        return TopicDto.convertModelToDto(topics);
+        return TopicDetailedDto.convertModelToDto(topics);
     }
 
     @Override
