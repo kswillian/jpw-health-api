@@ -1,5 +1,6 @@
 package com.jpwhealth.domain.dto;
 
+import com.jpwhealth.domain.Address;
 import com.jpwhealth.domain.Family;
 
 import java.util.List;
@@ -10,15 +11,13 @@ public class FamilyDto {
     private Long id;
     private String familyName;
     private String familyResponsible;
-    private String city;
-    private String uf;
+    private Address address;
 
     public FamilyDto(Family family) {
         this.id = family.getId();
         this.familyName = family.getFamilyName();
         this.familyResponsible = family.getFamilyResponsible();
-        this.city = family.getCity();
-        this.uf = family.getUf();
+        this.address = family.getAddress();
     }
 
     public Long getId() {
@@ -33,12 +32,8 @@ public class FamilyDto {
         return familyResponsible;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public String getUf() {
-        return uf;
+    public Address getAddress() {
+        return address;
     }
 
     public static List<FamilyDto> convertModelToDto(List<Family> families) {

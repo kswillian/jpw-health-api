@@ -21,7 +21,7 @@ public class FamilyServiceImplement implements FamilyService {
     private FamilyRepository familyRepository;
 
     @Override
-    public List<FamilyDto> getAll() {
+    public List<FamilyDetailedDto> getAll() {
         List<Family> families = familyRepository.findAll();
         return FamilyDetailedDto.convertModelToDto(families);
     }

@@ -42,8 +42,8 @@ public class TopicDetailedDto {
         this.dateRegister = dateRegister;
     }
 
-    public static List<TopicDto> convertModelToDto(List<Topic> topics) {
-        return topics.stream().map(TopicDto::new).collect(Collectors.toList());
+    public static List<TopicDetailedDto> convertModelToDto(List<Topic> topics) {
+        return topics.stream().map(TopicDetailedDto::new).collect(Collectors.toList());
     }
 
 }

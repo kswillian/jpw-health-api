@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface FamilyService {
 
-    List<FamilyDto> getAll();
+    List<FamilyDetailedDto> getAll();
 
     ResponseEntity<FamilyDetailedDto> getById(Long id);
 

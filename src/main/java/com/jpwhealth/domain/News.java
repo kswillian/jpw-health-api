@@ -38,6 +38,17 @@ public class News {
     public News() {
     }
 
+    public News(News news) {
+        this.id = news.getId();
+        this.title = news.getTitle();
+        this.subTitle = news.getSubTitle();
+        this.author = news.getAuthor();
+        this.message = news.getMessage();
+        this.imageUrl = news.getImageUrl();
+        this.topics = news.getTopics();
+        this.dateRegister = news.getDateRegister();
+    }
+
     public News(Long id, @NotBlank String title, @NotBlank String subTitle, @NotBlank String author, @NotBlank String message, @NotBlank String imageUrl, List<Topic> topics, LocalDateTime dateRegister) {
         this.id = id;
         this.title = title;

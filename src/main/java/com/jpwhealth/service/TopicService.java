@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface TopicService {
 
-    List<TopicDto> getAll();
+    List<TopicDetailedDto> getAll();
 
     ResponseEntity<TopicDetailedDto> getById(Long id);
 

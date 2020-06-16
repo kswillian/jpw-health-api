@@ -61,8 +61,8 @@ public class NewsDetailedDto {
         return dateRegister;
     }
 
-    public static List<NewsDto> convertModelToDto(List<News> newsList) {
-        return newsList.stream().map(NewsDto::new).collect(Collectors.toList());
+    public static List<News> convertModelToDto(List<News> newsList) {
+        return newsList.stream().map(News::new).collect(Collectors.toList());
     }
 
 }

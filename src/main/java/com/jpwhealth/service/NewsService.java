@@ -1,6 +1,7 @@
 package com.jpwhealth.service;
 
 import com.jpwhealth.domain.News;
+import com.jpwhealth.domain.dto.NewsDetailedDto;
 import com.jpwhealth.domain.dto.NewsDto;
 import com.jpwhealth.domain.form.NewsForm;
 import com.jpwhealth.domain.form.NewsFormUpdate;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public interface NewsService {
 
-    List<NewsDto> getAll();
+    List<News> getAll();
 
     ResponseEntity<?> getById(Long id);
 

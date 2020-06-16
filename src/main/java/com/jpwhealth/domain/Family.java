@@ -1,10 +1,6 @@
 package com.jpwhealth.domain;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,16 +21,9 @@ public class Family {
     private Integer unemployedNumber;
     private Long familyFinance;
     private Sex responsibleSex = Sex.UNDEFINED;
-    private String uf;
-    private String city;
 
-    @Column(precision = 10, scale = 4)
-    @Type(type = "big_decimal")
-    private BigDecimal latitude;
-
-    @Column(precision = 10, scale = 4)
-    @Type(type = "big_decimal")
-    private BigDecimal longitude;
+    @Embedded
+    private Address address;
 
     private LocalDateTime dateRegister = LocalDateTime.now();
 
@@ -133,36 +122,12 @@ public class Family {
         this.responsibleSex = responsibleSex;
     }
 
-    public String getUf() {
-        return uf;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public LocalDateTime getDateRegister() {

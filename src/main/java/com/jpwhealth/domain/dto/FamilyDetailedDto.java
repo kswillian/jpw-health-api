@@ -1,5 +1,6 @@
 package com.jpwhealth.domain.dto;
 
+import com.jpwhealth.domain.Address;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.Sex;
 
@@ -21,8 +22,7 @@ public class FamilyDetailedDto {
     private Integer unemployedNumber;
     private Long familyFinance;
     private Sex responsibleSex;
-    private String uf;
-    private String city;
+    private Address address;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private LocalDateTime dateRegister;
@@ -39,10 +39,7 @@ public class FamilyDetailedDto {
         this.unemployedNumber = family.getUnemployedNumber();
         this.familyFinance = family.getFamilyFinance();
         this.responsibleSex = family.getResponsibleSex();
-        this.uf = family.getUf();
-        this.city = family.getCity();
-        this.latitude = family.getLatitude();
-        this.longitude = family.getLongitude();
+        this.address = family.getAddress();
         this.dateRegister = family.getDateRegister();
     }
 
@@ -90,12 +87,8 @@ public class FamilyDetailedDto {
         return responsibleSex;
     }
 
-    public String getUf() {
-        return uf;
-    }
-
-    public String getCity() {
-        return city;
+    public Address getAddress() {
+        return address;
     }
 
     public BigDecimal getLatitude() {
@@ -110,7 +103,7 @@ public class FamilyDetailedDto {
         return dateRegister;
     }
 
-    public static List<FamilyDto> convertModelToDto(List<Family> families) {
-        return families.stream().map(FamilyDto::new).collect(Collectors.toList());
+    public static List<FamilyDetailedDto> convertModelToDto(List<Family> families) {
+        return families.stream().map(FamilyDetailedDto::new).collect(Collectors.toList());
     }
 }

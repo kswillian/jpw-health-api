@@ -21,7 +21,7 @@ public class TopicServiceImplement implements TopicService {
     private TopicRepository topicRepository;
 
     @Override
-    public List<TopicDto> getAll() {
+    public List<TopicDetailedDto> getAll() {
         List<Topic> topics = topicRepository.findAll();
         return TopicDetailedDto.convertModelToDto(topics);
     }

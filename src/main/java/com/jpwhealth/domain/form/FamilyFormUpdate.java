@@ -1,14 +1,13 @@
 package com.jpwhealth.domain.form;
 
+import com.jpwhealth.domain.Address;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.Sex;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class FamilyFormUpdate {
@@ -46,15 +45,9 @@ public class FamilyFormUpdate {
     private Sex responsibleSex;
 
     @NotNull
-    private String uf;
+    private Address address;
 
-    @NotNull
-    private String city;
-
-    private BigDecimal latitude;
-    private BigDecimal longitude;
-
-    public FamilyFormUpdate(@NotNull Long id, @NotNull String familyName, @NotNull String familyResponsible, @NotNull String responsibleCPF, @NotNull String responsibleRG, @NotNull LocalDateTime dateBirth, Integer adultsNumber, Integer childrenNumber, Integer unemployedNumber, @NotNull Long familyFinance, @NotNull Sex responsibleSex, @NotNull String uf, @NotNull String city, BigDecimal latitude, BigDecimal longitude) {
+    public FamilyFormUpdate(@NotNull Long id, @NotNull String familyName, @NotNull String familyResponsible, @NotNull String responsibleCPF, @NotNull String responsibleRG, @NotNull LocalDateTime dateBirth, Integer adultsNumber, Integer childrenNumber, Integer unemployedNumber, @NotNull Long familyFinance, @NotNull Sex responsibleSex, @NotNull Address address) {
         this.id = id;
         this.familyName = familyName;
         this.familyResponsible = familyResponsible;
@@ -66,10 +59,7 @@ public class FamilyFormUpdate {
         this.unemployedNumber = unemployedNumber;
         this.familyFinance = familyFinance;
         this.responsibleSex = responsibleSex;
-        this.uf = uf;
-        this.city = city;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.address = address;
     }
 
     public Long getId() {
@@ -116,20 +106,8 @@ public class FamilyFormUpdate {
         return responsibleSex;
     }
 
-    public String getUf() {
-        return uf;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
+    public Address getAddress() {
+        return address;
     }
 
     public static Family convertFormToModel(FamilyFormUpdate familyFormUpdate){
@@ -145,10 +123,7 @@ public class FamilyFormUpdate {
         family.setUnemployedNumber(familyFormUpdate.getUnemployedNumber());
         family.setFamilyFinance(familyFormUpdate.getFamilyFinance());
         family.setResponsibleSex(familyFormUpdate.getResponsibleSex());
-        family.setUf(familyFormUpdate.getUf());
-        family.setCity(familyFormUpdate.getCity());
-        family.setLatitude(familyFormUpdate.getLatitude());
-        family.setLongitude(familyFormUpdate.longitude);
+        family.setAddress(familyFormUpdate.getAddress());
         return family;
     }
 
@@ -166,10 +141,7 @@ public class FamilyFormUpdate {
                 ", unemployedNumber=" + unemployedNumber +
                 ", familyFinance=" + familyFinance +
                 ", responsibleSex=" + responsibleSex +
-                ", uf='" + uf + '\'' +
-                ", city='" + city + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
+                ", address=" + address +
                 '}';
     }
 }
