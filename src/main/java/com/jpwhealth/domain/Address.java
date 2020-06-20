@@ -9,6 +9,7 @@ public class Address {
     private String street;
     private String complement;
     private String neighborhood;
+    private String numberHouse;
     private String city;
     private String uf;
     private String unity;
@@ -18,11 +19,12 @@ public class Address {
     public Address() {
     }
 
-    public Address(String cep, String street, String complement, String neighborhood, String city, String uf, String unity, String ibge, String gia) {
+    public Address(String cep, String street, String complement, String neighborhood, String numberHouse,String city, String uf, String unity, String ibge, String gia) {
         this.cep = cep;
         this.street = street;
         this.complement = complement;
         this.neighborhood = neighborhood;
+        this.numberHouse = numberHouse;
         this.city = city;
         this.uf = uf;
         this.unity = unity;
@@ -60,6 +62,14 @@ public class Address {
 
     public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
+    }
+
+    public String getNumberHouse() {
+        return numberHouse;
+    }
+
+    public void setNumberHouse(String numberHouse) {
+        this.numberHouse = numberHouse;
     }
 
     public String getCity() {
