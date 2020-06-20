@@ -1,5 +1,7 @@
 package com.jpwhealth.service.serviceImplement;
 
+import com.jpwhealth.configuration.exception.CpfAlreadyRegisteredException;
+import com.jpwhealth.configuration.exception.ResourceNotFoundException;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.dto.FamilyDetailedDto;
 import com.jpwhealth.domain.dto.FamilyDto;
@@ -28,62 +30,44 @@ public class FamilyServiceImplement implements FamilyService {
 
     @Override
     public ResponseEntity<FamilyDetailedDto> getById(Long id) {
-
-        Optional<Family> family = Optional.ofNullable(familyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Familia não encontrada.")));
-
-        if(family.isPresent()){
-            return ResponseEntity.ok().body(new FamilyDetailedDto(family.get()));
-        }
-
-        return ResponseEntity.notFound().build();
+        verifyIfFamilyExists(id);
+        Optional<Family> family = familyRepository.findById(id);
+        return ResponseEntity.ok().body(new FamilyDetailedDto(family.get()));
     }
 
     @Override
     public Family register(FamilyForm familyForm) {
-
-        if(familyRepository.existsByResponsibleCPF(familyForm.getResponsibleCPF())){
-            throw new RuntimeException(
-                    String.format("O CPF %s já se encontra cadastrado!", familyForm.getResponsibleCPF())
-            );
-        }
-
+        verifyIfCpfExists(familyForm.getResponsibleCPF());
         Family family = FamilyForm.convertFormToModel(familyForm);
         familyRepository.save(family);
-
         return family;
-
     }
 
     @Override
     public ResponseEntity<FamilyDto> update(FamilyFormUpdate familyFormUpdate) {
-
-        Optional<Family> family = Optional.ofNullable(familyRepository.findById(familyFormUpdate.getId())
-                .orElseThrow(() -> new RuntimeException("Familia não encontrada.")));
-
-        if(family.isPresent()){
-            Family familyUpdate = FamilyFormUpdate.convertFormToModel(familyFormUpdate);
-            familyRepository.save(familyUpdate);
-            return ResponseEntity.ok().body(new FamilyDto(familyUpdate));
-        }
-
-        return ResponseEntity.notFound().build();
-
+        verifyIfFamilyExists(familyFormUpdate.getId());
+        Family familyUpdate = FamilyFormUpdate.convertFormToModel(familyFormUpdate);
+        familyRepository.save(familyUpdate);
+        return ResponseEntity.ok().body(new FamilyDto(familyUpdate));
     }
 
     @Override
     public ResponseEntity delete(Long id) {
+        verifyIfFamilyExists(id);
+        familyRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 
-        Optional<Family> family = Optional.ofNullable(familyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Familia não encontrada.")));
-
-        if(family.isPresent()){
-            familyRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+    private void verifyIfFamilyExists(Long id){
+        if(familyRepository.findById(id).isEmpty()){
+            throw new ResourceNotFoundException("Family", id);
         }
+    }
 
-        return ResponseEntity.notFound().build();
-
+    private void verifyIfCpfExists(String cpf){
+        if(familyRepository.existsByResponsibleCPF(cpf)){
+            throw new CpfAlreadyRegisteredException(cpf);
+        }
     }
 
 }

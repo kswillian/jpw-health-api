@@ -1,5 +1,7 @@
 package com.jpwhealth.service.serviceImplement;
 
+import com.jpwhealth.configuration.exception.ResourceNotFoundException;
+import com.jpwhealth.configuration.exception.TopicAlreadyRegisteredException;
 import com.jpwhealth.domain.Topic;
 import com.jpwhealth.domain.dto.TopicDetailedDto;
 import com.jpwhealth.domain.dto.TopicDto;
@@ -28,62 +30,45 @@ public class TopicServiceImplement implements TopicService {
 
     @Override
     public ResponseEntity<TopicDetailedDto> getById(Long id) {
-
-        Optional<Topic> topic = Optional.ofNullable(topicRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("O topico %s não foi encontrado", id))));
-
-        if(topic.isPresent()){
-            return ResponseEntity.ok().body(new TopicDetailedDto(topic.get()));
-        }
-
-        return ResponseEntity.notFound().build();
-
+        verifyIfTopicExists(id);
+        Optional<Topic> topic = topicRepository.findById(id);
+        return ResponseEntity.ok().body(new TopicDetailedDto(topic.get()));
     }
 
     @Override
     public Topic register(TopicForm topicForm) {
-
-        if(topicRepository.existsByName(topicForm.getName())){
-            throw new RuntimeException(
-                    String.format("O topico %s já se encontra cadastrado!", topicForm.getName())
-            );
-        }
-
+        verifyIfTopicExists(topicForm.getName());
         Topic topic = TopicForm.convertFormToModel(topicForm);
         topicRepository.save(topic);
-
         return topic;
-
     }
 
     @Override
     public ResponseEntity<TopicDto> update(TopicFormUpdate topicFormUpdate) {
-
-        Optional<Topic> topic = Optional.ofNullable(topicRepository.findById(topicFormUpdate.getId())
-                .orElseThrow(() -> new RuntimeException("Topico não encontrado.")));
-
-        if(topic.isPresent()){
-            Topic topicUpdate = TopicFormUpdate.convertFormToModel(topicFormUpdate);
-            topicRepository.save(topicUpdate);
-            return ResponseEntity.ok().body(new TopicDto(topicUpdate));
-        }
-
-        return ResponseEntity.notFound().build();
-
+        verifyIfTopicExists(topicFormUpdate.getId());
+        verifyIfTopicExists(topicFormUpdate.getName());
+        Topic topicUpdate = TopicFormUpdate.convertFormToModel(topicFormUpdate);
+        topicRepository.save(topicUpdate);
+        return ResponseEntity.ok().body(new TopicDto(topicUpdate));
     }
 
     @Override
     public ResponseEntity delete(Long id) {
-
-        Optional<Topic> topic = Optional.ofNullable(topicRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("O topico %s não foi encontrado", id))));
-
-        if(topic.isPresent()){
-            topicRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
-
+        verifyIfTopicExists(id);
+        topicRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
+
+    private void verifyIfTopicExists(Long id){
+        if(topicRepository.findById(id).isEmpty()){
+            throw new ResourceNotFoundException("Topic", id);
+        }
+    }
+
+    private void verifyIfTopicExists(String topicName){
+        if(topicRepository.existsByName(topicName)){
+            throw new TopicAlreadyRegisteredException(topicName);
+        }
+    }
+
 }

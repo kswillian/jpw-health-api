@@ -1,5 +1,6 @@
 package com.jpwhealth.service.serviceImplement;
 
+import com.jpwhealth.configuration.exception.ResourceNotFoundException;
 import com.jpwhealth.domain.News;
 import com.jpwhealth.domain.Topic;
 import com.jpwhealth.domain.dto.NewsDetailedDto;
@@ -32,18 +33,9 @@ public class NewsServiceImplement implements NewsService {
 
     @Override
     public ResponseEntity<?> getById(Long id) {
-
-        Optional<News> news = Optional.ofNullable(newsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("A news %s não foi encontrada", id))));
-
-        List<Topic> topics = news.get().getTopics();
-
-        if(news.isPresent()){
-            return ResponseEntity.ok().body(new NewsDetailedDto(news.get(), topics));
-        }
-
-        return ResponseEntity.notFound().build();
-
+        verifyIfNewsExists(id);
+        Optional<News> news = newsRepository.findById(id);
+        return ResponseEntity.ok().body(new NewsDetailedDto(news.get(), news.get().getTopics()));
     }
 
     @Override
@@ -56,34 +48,31 @@ public class NewsServiceImplement implements NewsService {
 
     @Override
     public ResponseEntity<NewsDto> update(NewsFormUpdate newsFormUpdate) {
-
-        Optional<News> news = Optional.ofNullable(newsRepository.findById(newsFormUpdate.getId())
-                .orElseThrow(() -> new RuntimeException(String.format("A news %s não foi encontrada", newsFormUpdate.getId()))));
-
+        verifyIfNewsExists(newsFormUpdate.getId());
+        verifyIfTopicNewsExists(newsFormUpdate.getTopicId());
         List<Topic> topics = topicRepository.findAllById(newsFormUpdate.getTopicId());
-
-        if(news.isPresent()){
-            News newsUpdate = NewsFormUpdate.convertFormToModel(newsFormUpdate, topics);
-            newsRepository.save(newsUpdate);
-            return ResponseEntity.ok().body(new NewsDto(newsUpdate));
-        }
-
-        return ResponseEntity.notFound().build();
-
+        News newsUpdate = NewsFormUpdate.convertFormToModel(newsFormUpdate, topics);
+        newsRepository.save(newsUpdate);
+        return ResponseEntity.ok().body(new NewsDto(newsUpdate));
     }
 
     @Override
     public ResponseEntity delete(Long id) {
-
-        Optional<News> news = Optional.ofNullable(newsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("A news %s não foi encontrada", id))));
-
-        if(news.isPresent()){
-            newsRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.notFound().build();
+        verifyIfNewsExists(id);
+        newsRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
-    
+
+    private void verifyIfNewsExists(Long id){
+        if(newsRepository.findById(id).isEmpty()){
+            throw new ResourceNotFoundException("News", id);
+        }
+    }
+
+    private void verifyIfTopicNewsExists(List<Long> ids){
+        if(topicRepository.findAllById(ids).isEmpty()){
+            throw new ResourceNotFoundException("Topic", ids);
+        }
+    }
+
 }
