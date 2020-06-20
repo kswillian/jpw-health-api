@@ -64,7 +64,7 @@ public class NewsServiceImplement implements NewsService {
     }
 
     private void verifyIfNewsExists(Long id){
-        if(newsRepository.findById(id).isEmpty()){
+        if(!newsRepository.findById(id).isPresent()){
             throw new ResourceNotFoundException("News", id);
         }
     }

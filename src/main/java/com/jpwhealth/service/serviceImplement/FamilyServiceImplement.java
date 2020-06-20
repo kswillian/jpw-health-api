@@ -59,7 +59,7 @@ public class FamilyServiceImplement implements FamilyService {
     }
 
     private void verifyIfFamilyExists(Long id){
-        if(familyRepository.findById(id).isEmpty()){
+        if(!familyRepository.findById(id).isPresent()){
             throw new ResourceNotFoundException("Family", id);
         }
     }

@@ -60,7 +60,7 @@ public class TopicServiceImplement implements TopicService {
     }
 
     private void verifyIfTopicExists(Long id){
-        if(topicRepository.findById(id).isEmpty()){
+        if(!topicRepository.findById(id).isPresent()){
             throw new ResourceNotFoundException("Topic", id);
         }
     }
