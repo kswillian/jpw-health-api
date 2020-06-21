@@ -42,9 +42,12 @@ public class FamilyForm {
     private Sex responsibleSex;
 
     @NotNull
+    private String observation;
+
+    @NotNull
     private Address address;
 
-    public FamilyForm(@NotNull String familyName, @NotNull String familyResponsible, @NotNull String responsibleCPF, @NotNull String responsibleRG, @NotNull LocalDateTime dateBirth, Integer adultsNumber, Integer childrenNumber, Integer unemployedNumber, @NotNull Long familyFinance, @NotNull Sex responsibleSex, @NotNull Address address) {
+    public FamilyForm(@NotNull String familyName, @NotNull String familyResponsible, @NotNull String responsibleCPF, @NotNull String responsibleRG, @NotNull LocalDateTime dateBirth, Integer adultsNumber, Integer childrenNumber, Integer unemployedNumber, @NotNull Long familyFinance, @NotNull Sex responsibleSex, @NotNull String observation, @NotNull Address address) {
         this.familyName = familyName;
         this.familyResponsible = familyResponsible;
         this.responsibleCPF = responsibleCPF;
@@ -55,6 +58,7 @@ public class FamilyForm {
         this.unemployedNumber = unemployedNumber;
         this.familyFinance = familyFinance;
         this.responsibleSex = responsibleSex;
+        this.observation = observation;
         this.address = address;
     }
 
@@ -98,6 +102,10 @@ public class FamilyForm {
         return responsibleSex;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -114,6 +122,7 @@ public class FamilyForm {
         family.setUnemployedNumber(familyForm.getUnemployedNumber());
         family.setFamilyFinance(familyForm.getFamilyFinance());
         family.setResponsibleSex(familyForm.getResponsibleSex());
+        family.setObservation(familyForm.getObservation());
         family.setAddress(familyForm.getAddress());
         return family;
     }

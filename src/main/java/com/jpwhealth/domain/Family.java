@@ -20,6 +20,9 @@ public class Family {
     private Integer childrenNumber;
     private Integer unemployedNumber;
     private Long familyFinance;
+
+    @Lob
+    private String observation;
     private Sex responsibleSex = Sex.UNDEFINED;
 
     @Embedded
@@ -124,6 +127,14 @@ public class Family {
 
     public Address getAddress() {
         return address;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public void setAddress(Address address) {

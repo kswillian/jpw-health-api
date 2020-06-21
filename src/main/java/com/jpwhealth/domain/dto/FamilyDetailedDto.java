@@ -22,9 +22,8 @@ public class FamilyDetailedDto {
     private Integer unemployedNumber;
     private Long familyFinance;
     private Sex responsibleSex;
+    private String observation;
     private Address address;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
     private LocalDateTime dateRegister;
 
     public FamilyDetailedDto(Family family) {
@@ -39,6 +38,7 @@ public class FamilyDetailedDto {
         this.unemployedNumber = family.getUnemployedNumber();
         this.familyFinance = family.getFamilyFinance();
         this.responsibleSex = family.getResponsibleSex();
+        this.observation = family.getObservation();
         this.address = family.getAddress();
         this.dateRegister = family.getDateRegister();
     }
@@ -87,16 +87,12 @@ public class FamilyDetailedDto {
         return responsibleSex;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
     public Address getAddress() {
         return address;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
     }
 
     public LocalDateTime getDateRegister() {
@@ -106,4 +102,5 @@ public class FamilyDetailedDto {
     public static List<FamilyDetailedDto> convertModelToDto(List<Family> families) {
         return families.stream().map(FamilyDetailedDto::new).collect(Collectors.toList());
     }
+
 }
