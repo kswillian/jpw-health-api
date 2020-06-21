@@ -11,6 +11,10 @@ import com.jpwhealth.repository.NewsRepository;
 import com.jpwhealth.repository.TopicRepository;
 import com.jpwhealth.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +30,8 @@ public class NewsServiceImplement implements NewsService {
     private TopicRepository topicRepository;
 
     @Override
-    public List<News> getAll() {
-        List<News> newsList = newsRepository.findAll();
+    public Page<News> getAll(Pageable pageable) {
+        Page<News> newsList = newsRepository.findAll(pageable);
         return NewsDetailedDto.convertModelToDto(newsList);
     }
 

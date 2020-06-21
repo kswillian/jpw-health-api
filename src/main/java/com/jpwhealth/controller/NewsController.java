@@ -8,6 +8,7 @@ import com.jpwhealth.domain.form.NewsFormUpdate;
 import com.jpwhealth.service.NewsService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class NewsController {
 
     @ApiOperation(value = "Lista o cadastro de notícias", notes = "Lista o cadastro de notícias da página", response = NewsDto.class, responseContainer = "List" )
     @GetMapping("/news")
-    public ResponseEntity<Object> getAll(){
-        return ResponseEntity.ok(newsService.getAll());
+    public ResponseEntity<?> getAll(Pageable pageable){
+        return ResponseEntity.ok(newsService.getAll(pageable));
     }
 
     @ApiOperation(value = "Lista o cadastro de notícias por id", notes = "Lista o cadastro de um notícias específica", response = NewsDetailedDto.class, responseContainer = "Object" )

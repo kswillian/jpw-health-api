@@ -2,6 +2,7 @@ package com.jpwhealth.domain.dto;
 
 import com.jpwhealth.domain.News;
 import com.jpwhealth.domain.Topic;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,8 +62,8 @@ public class NewsDetailedDto {
         return dateRegister;
     }
 
-    public static List<News> convertModelToDto(List<News> newsList) {
-        return newsList.stream().map(News::new).collect(Collectors.toList());
+    public static Page<News> convertModelToDto(Page<News> newsList) {
+        return newsList.map(News::new);
     }
 
 }
