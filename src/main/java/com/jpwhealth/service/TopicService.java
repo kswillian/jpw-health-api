@@ -13,7 +13,7 @@ public interface TopicService {
 
     List<TopicDetailedDto> getAll();
 
-    ResponseEntity<TopicDetailedDto> getById(Long id);
+    ResponseEntity<TopicDto> getById(Long id);
 
     Topic register(TopicForm topicForm);
 

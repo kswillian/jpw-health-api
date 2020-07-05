@@ -12,6 +12,9 @@ public class TopicDetailedDto {
     private String name;
     private LocalDateTime dateRegister;
 
+    public TopicDetailedDto() {
+    }
+
     public TopicDetailedDto(Topic topic) {
         this.id = topic.getId();
         this.name = topic.getName();
@@ -40,10 +43,6 @@ public class TopicDetailedDto {
 
     public void setDateRegister(LocalDateTime dateRegister) {
         this.dateRegister = dateRegister;
-    }
-
-    public static List<TopicDetailedDto> convertModelToDto(List<Topic> topics) {
-        return topics.stream().map(TopicDetailedDto::new).collect(Collectors.toList());
     }
 
 }

@@ -1,14 +1,17 @@
 package com.jpwhealth.service.serviceImplement;
 
-import com.jpwhealth.configuration.exception.ResourceNotFoundException;
 import com.jpwhealth.configuration.exception.TopicAlreadyRegisteredException;
+import com.jpwhealth.domain.Entity;
 import com.jpwhealth.domain.Topic;
 import com.jpwhealth.domain.dto.TopicDetailedDto;
 import com.jpwhealth.domain.dto.TopicDto;
+import com.jpwhealth.domain.dto.converter.ConverterModelToDto;
 import com.jpwhealth.domain.form.TopicForm;
 import com.jpwhealth.domain.form.TopicFormUpdate;
+import com.jpwhealth.domain.form.converter.ConverterFormToModel;
 import com.jpwhealth.repository.TopicRepository;
 import com.jpwhealth.service.TopicService;
+import com.jpwhealth.validation.RecordValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,44 +28,38 @@ public class TopicServiceImplement implements TopicService {
     @Override
     public List<TopicDetailedDto> getAll() {
         List<Topic> topics = topicRepository.findAll();
-        return TopicDetailedDto.convertModelToDto(topics);
+        return ConverterModelToDto.toTopicDetailedDto(topics);
     }
 
     @Override
-    public ResponseEntity<TopicDetailedDto> getById(Long id) {
-        verifyIfTopicExists(id);
+    public ResponseEntity<TopicDto> getById(Long id) {
+        new RecordValidation(topicRepository).verifyIfRecordExist(Entity.Topic, id);
         Optional<Topic> topic = topicRepository.findById(id);
-        return ResponseEntity.ok().body(new TopicDetailedDto(topic.get()));
+        return ResponseEntity.ok().body(ConverterModelToDto.toTopicDto(topic.get()));
     }
 
     @Override
     public Topic register(TopicForm topicForm) {
         verifyIfTopicExists(topicForm.getName());
-        Topic topic = TopicForm.convertFormToModel(topicForm);
+        Topic topic = ConverterFormToModel.toTopic(topicForm);
         topicRepository.save(topic);
         return topic;
     }
 
     @Override
     public ResponseEntity<TopicDto> update(TopicFormUpdate topicFormUpdate) {
-        verifyIfTopicExists(topicFormUpdate.getId());
+        new RecordValidation(topicRepository).verifyIfRecordExist(Entity.Topic, topicFormUpdate.getId());
         verifyIfTopicExists(topicFormUpdate.getName());
-        Topic topicUpdate = TopicFormUpdate.convertFormToModel(topicFormUpdate);
+        Topic topicUpdate = ConverterFormToModel.toTopic(topicFormUpdate);
         topicRepository.save(topicUpdate);
         return ResponseEntity.ok().body(new TopicDto(topicUpdate));
     }
 
     @Override
     public ResponseEntity delete(Long id) {
-        verifyIfTopicExists(id);
+        new RecordValidation(topicRepository).verifyIfRecordExist(Entity.Topic, id);
         topicRepository.deleteById(id);
         return ResponseEntity.ok().build();
-    }
-
-    private void verifyIfTopicExists(Long id){
-        if(!topicRepository.findById(id).isPresent()){
-            throw new ResourceNotFoundException("Topic", id);
-        }
     }
 
     private void verifyIfTopicExists(String topicName){

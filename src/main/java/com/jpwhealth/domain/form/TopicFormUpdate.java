@@ -1,7 +1,5 @@
 package com.jpwhealth.domain.form;
 
-import com.jpwhealth.domain.Topic;
-
 import javax.validation.constraints.NotNull;
 
 public class TopicFormUpdate {
@@ -23,13 +21,6 @@ public class TopicFormUpdate {
 
     public String getName() {
         return name;
-    }
-
-    public static Topic convertFormToModel(TopicFormUpdate topicFormUpdate){
-        Topic topic = new Topic();
-        topic.setId(topicFormUpdate.getId());
-        topic.setName(topicFormUpdate.getName());
-        return topic;
     }
 
     @Override

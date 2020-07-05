@@ -1,6 +1,7 @@
 package com.jpwhealth.domain;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Entity

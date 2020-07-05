@@ -110,23 +110,6 @@ public class FamilyForm {
         return address;
     }
 
-    public static Family convertFormToModel(FamilyForm familyForm){
-        Family family = new Family();
-        family.setFamilyName(familyForm.getFamilyName());
-        family.setFamilyResponsible(familyForm.getFamilyResponsible());
-        family.setResponsibleCPF(familyForm.getResponsibleCPF());
-        family.setResponsibleRG(familyForm.getResponsibleRG());
-        family.setDateBirth(familyForm.getDateBirth());
-        family.setAdultsNumber(familyForm.getAdultsNumber());
-        family.setChildrenNumber(familyForm.getChildrenNumber());
-        family.setUnemployedNumber(familyForm.getUnemployedNumber());
-        family.setFamilyFinance(familyForm.getFamilyFinance());
-        family.setResponsibleSex(familyForm.getResponsibleSex());
-        family.setObservation(familyForm.getObservation());
-        family.setAddress(familyForm.getAddress());
-        return family;
-    }
-
     @Override
     public String toString() {
         return "FamilyForm{" +

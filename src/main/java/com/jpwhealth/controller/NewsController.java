@@ -3,6 +3,7 @@ package com.jpwhealth.controller;
 import com.jpwhealth.domain.News;
 import com.jpwhealth.domain.dto.NewsDetailedDto;
 import com.jpwhealth.domain.dto.NewsDto;
+import com.jpwhealth.domain.dto.converter.ConverterModelToDto;
 import com.jpwhealth.domain.form.NewsForm;
 import com.jpwhealth.domain.form.NewsFormUpdate;
 import com.jpwhealth.service.NewsService;
@@ -39,7 +40,7 @@ public class NewsController {
     @PostMapping("/news")
     public ResponseEntity<NewsDto> register(@Valid @RequestBody NewsForm newsForm){
         News news = newsService.register(newsForm);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new NewsDto(news));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ConverterModelToDto.toNewsDto(news));
     }
 
     @ApiOperation(value = "Atualiza o cadastro de uma notícia", notes = "Atualiza os dados cadastrais da notícia", response = NewsDto.class, responseContainer = "Object" )

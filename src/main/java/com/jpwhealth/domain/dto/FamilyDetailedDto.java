@@ -4,10 +4,7 @@ import com.jpwhealth.domain.Address;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.Sex;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FamilyDetailedDto {
 
@@ -97,10 +94,6 @@ public class FamilyDetailedDto {
 
     public LocalDateTime getDateRegister() {
         return dateRegister;
-    }
-
-    public static List<FamilyDetailedDto> convertModelToDto(List<Family> families) {
-        return families.stream().map(FamilyDetailedDto::new).collect(Collectors.toList());
     }
 
 }

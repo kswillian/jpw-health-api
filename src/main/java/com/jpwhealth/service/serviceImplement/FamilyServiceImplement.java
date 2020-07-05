@@ -1,14 +1,17 @@
 package com.jpwhealth.service.serviceImplement;
 
 import com.jpwhealth.configuration.exception.CpfAlreadyRegisteredException;
-import com.jpwhealth.configuration.exception.ResourceNotFoundException;
+import com.jpwhealth.domain.Entity;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.dto.FamilyDetailedDto;
 import com.jpwhealth.domain.dto.FamilyDto;
+import com.jpwhealth.domain.dto.converter.ConverterModelToDto;
 import com.jpwhealth.domain.form.FamilyForm;
 import com.jpwhealth.domain.form.FamilyFormUpdate;
+import com.jpwhealth.domain.form.converter.ConverterFormToModel;
 import com.jpwhealth.repository.FamilyRepository;
 import com.jpwhealth.service.FamilyService;
+import com.jpwhealth.validation.RecordValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,12 +28,12 @@ public class FamilyServiceImplement implements FamilyService {
     @Override
     public List<FamilyDetailedDto> getAll() {
         List<Family> families = familyRepository.findAll();
-        return FamilyDetailedDto.convertModelToDto(families);
+        return ConverterModelToDto.toFamilyDetailedDto(families);
     }
 
     @Override
     public ResponseEntity<FamilyDetailedDto> getById(Long id) {
-        verifyIfFamilyExists(id);
+        new RecordValidation(familyRepository).verifyIfRecordExist(Entity.Family, id);
         Optional<Family> family = familyRepository.findById(id);
         return ResponseEntity.ok().body(new FamilyDetailedDto(family.get()));
     }
@@ -38,30 +41,24 @@ public class FamilyServiceImplement implements FamilyService {
     @Override
     public Family register(FamilyForm familyForm) {
         verifyIfCpfExists(familyForm.getResponsibleCPF());
-        Family family = FamilyForm.convertFormToModel(familyForm);
+        Family family = ConverterFormToModel.toFamily(familyForm);
         familyRepository.save(family);
         return family;
     }
 
     @Override
     public ResponseEntity<FamilyDto> update(FamilyFormUpdate familyFormUpdate) {
-        verifyIfFamilyExists(familyFormUpdate.getId());
-        Family familyUpdate = FamilyFormUpdate.convertFormToModel(familyFormUpdate);
+        new RecordValidation(familyRepository).verifyIfRecordExist(Entity.Family, familyFormUpdate.getId());
+        Family familyUpdate = ConverterFormToModel.toFamily(familyFormUpdate);
         familyRepository.save(familyUpdate);
         return ResponseEntity.ok().body(new FamilyDto(familyUpdate));
     }
 
     @Override
     public ResponseEntity delete(Long id) {
-        verifyIfFamilyExists(id);
+        new RecordValidation(familyRepository).verifyIfRecordExist(Entity.Family, id);
         familyRepository.deleteById(id);
         return ResponseEntity.ok().build();
-    }
-
-    private void verifyIfFamilyExists(Long id){
-        if(!familyRepository.findById(id).isPresent()){
-            throw new ResourceNotFoundException("Family", id);
-        }
     }
 
     private void verifyIfCpfExists(String cpf){

@@ -3,6 +3,7 @@ package com.jpwhealth.controller;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.dto.FamilyDetailedDto;
 import com.jpwhealth.domain.dto.FamilyDto;
+import com.jpwhealth.domain.dto.converter.ConverterModelToDto;
 import com.jpwhealth.domain.form.FamilyForm;
 import com.jpwhealth.domain.form.FamilyFormUpdate;
 import com.jpwhealth.service.FamilyService;
@@ -38,7 +39,7 @@ public class FamilyController {
     @PostMapping("/family")
     public ResponseEntity<FamilyDto> register(@Valid @RequestBody FamilyForm familyForm){
         Family family = familyService.register(familyForm);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new FamilyDto(family));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ConverterModelToDto.toFamilyDto(family));
     }
 
     @ApiOperation(value = "Atualiza o cadastro de uma familia", notes = "Atualiza os dados cadastrais da familia", response = FamilyDto.class, responseContainer = "Object" )

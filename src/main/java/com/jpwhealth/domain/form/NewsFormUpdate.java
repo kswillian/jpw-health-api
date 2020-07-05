@@ -1,7 +1,5 @@
 package com.jpwhealth.domain.form;
 
-import com.jpwhealth.domain.News;
-import com.jpwhealth.domain.Topic;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.NotNull;
@@ -67,18 +65,6 @@ public class NewsFormUpdate {
 
     public List<Long> getTopicId() {
         return topicId;
-    }
-
-    public static News convertFormToModel(NewsFormUpdate newsFormUpdate, List<Topic> topics){
-        News news = new News();
-        news.setId(newsFormUpdate.getId());
-        news.setTitle(newsFormUpdate.getTitle());
-        news.setSubTitle(newsFormUpdate.getSubTitle());
-        news.setAuthor(newsFormUpdate.getAuthor());
-        news.setImageUrl(newsFormUpdate.getImageUrl());
-        news.setMessage(newsFormUpdate.getMessage());
-        news.setTopics(topics);
-        return news;
     }
 
 }

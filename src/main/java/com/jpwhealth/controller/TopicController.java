@@ -3,6 +3,7 @@ package com.jpwhealth.controller;
 import com.jpwhealth.domain.Topic;
 import com.jpwhealth.domain.dto.TopicDetailedDto;
 import com.jpwhealth.domain.dto.TopicDto;
+import com.jpwhealth.domain.dto.converter.ConverterModelToDto;
 import com.jpwhealth.domain.form.TopicForm;
 import com.jpwhealth.domain.form.TopicFormUpdate;
 import com.jpwhealth.service.TopicService;
@@ -38,7 +39,7 @@ public class TopicController {
     @PostMapping("/topic")
     public ResponseEntity<TopicDto> register(@Valid @RequestBody TopicForm topicForm){
         Topic topic = topicService.register(topicForm);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new TopicDto(topic));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ConverterModelToDto.toTopicDto(topic));
     }
 
     @ApiOperation(value = "Atualiza o cadastro de um topico", notes = "Atualiza os dados cadastrais do topico", response = TopicDto.class, responseContainer = "List" )

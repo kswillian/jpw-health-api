@@ -13,6 +13,9 @@ public class FamilyDto {
     private String familyResponsible;
     private Address address;
 
+    public FamilyDto() {
+    }
+
     public FamilyDto(Family family) {
         this.id = family.getId();
         this.familyName = family.getFamilyName();
@@ -34,10 +37,6 @@ public class FamilyDto {
 
     public Address getAddress() {
         return address;
-    }
-
-    public static List<FamilyDto> convertModelToDto(List<Family> families) {
-        return families.stream().map(FamilyDto::new).collect(Collectors.toList());
     }
 
 }
