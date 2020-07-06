@@ -48,7 +48,7 @@ public class TopicController {
         return topicService.update(topicFormUpdate);
     }
 
-    @ApiOperation(value = "Remove o cadastro de um topico", notes = "remove o registro cadastral do topico informado", response = ResponseEntity.class, responseContainer = "List" )
+    @ApiOperation(value = "Remove o cadastro de um topico", notes = "Remove o registro cadastral do topico informado", response = ResponseEntity.class, responseContainer = "List" )
     @DeleteMapping("/topic/{id}")
     public ResponseEntity delete(@PathVariable Long id){
         return topicService.delete(id);
