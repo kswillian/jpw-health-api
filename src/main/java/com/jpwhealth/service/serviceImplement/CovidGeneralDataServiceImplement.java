@@ -47,7 +47,7 @@ public class CovidGeneralDataServiceImplement implements CovidGeneralDataService
         while(true){
             CovidGeneralData covidGeneralData = ApiCovidClient.getCovidGeneralData();
             covidGeneralDataRepository.save(covidGeneralData);
-            Thread.sleep(DAY_IN_MILLISECONS);
+            Thread.sleep(1000);
         }
 
     }

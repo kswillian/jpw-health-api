@@ -8,7 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @EnableAsync
-@ComponentScan("com.jpwhealth.jpwClient")
+@ComponentScan("com.jpwhealth.service.serviceImplement")
 public class AsyncConfiguration {
 
     @Bean
