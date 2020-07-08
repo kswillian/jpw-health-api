@@ -59,6 +59,8 @@ public class CovidGeneralData implements Serializable {
     @JsonProperty("Date")
     private LocalDateTime date;
 
+    private LocalDateTime dateRegister = LocalDateTime.now();
+
     public CovidGeneralData() {
     }
 
@@ -186,6 +188,14 @@ public class CovidGeneralData implements Serializable {
         this.date = date;
     }
 
+    public LocalDateTime getDateRegister() {
+        return dateRegister;
+    }
+
+    public void setDateRegister(LocalDateTime dateRegister) {
+        this.dateRegister = dateRegister;
+    }
+
     @Override
     public String toString() {
         return "CovidGeneralData{" +
@@ -202,6 +212,7 @@ public class CovidGeneralData implements Serializable {
                 ", recovered=" + recovered +
                 ", active=" + active +
                 ", date=" + date +
+                ", dateRegister=" + dateRegister +
                 '}';
     }
 }

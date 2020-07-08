@@ -1,7 +1,6 @@
 package com.jpwhealth.domain.form;
 
 import com.jpwhealth.domain.Address;
-import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.Sex;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -1,6 +1,7 @@
 package com.jpwhealth.service;
 
 import com.jpwhealth.domain.CovidGeneralData;
+import com.jpwhealth.domain.form.CovidGeneralDataForm;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,8 @@ public interface CovidGeneralDataService {
     ResponseEntity<CovidGeneralData> getByDate(LocalDateTime date);
 
     void register() throws InterruptedException;
+
+    CovidGeneralData registerByRequest(CovidGeneralDataForm covidGeneralDataForm);
 
     ResponseEntity delete(Long id);
 

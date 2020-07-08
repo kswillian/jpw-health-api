@@ -1,5 +1,6 @@
 package com.jpwhealth.domain.form.converter;
 
+import com.jpwhealth.domain.CovidGeneralData;
 import com.jpwhealth.domain.Family;
 import com.jpwhealth.domain.News;
 import com.jpwhealth.domain.Topic;
@@ -78,6 +79,23 @@ public class ConverterFormToModel {
         family.setObservation(familyFormUpdate.getObservation());
         family.setAddress(familyFormUpdate.getAddress());
         return family;
+    }
+
+    public static CovidGeneralData toCovidGeneralData(CovidGeneralDataForm covidGeneralDataForm){
+        CovidGeneralData covidGeneralData = new CovidGeneralData();
+        covidGeneralData.setCountry(covidGeneralDataForm.getCountry());
+        covidGeneralData.setCountryCode(covidGeneralDataForm.getCountryCode());
+        covidGeneralData.setProvince(covidGeneralDataForm.getProvince());
+        covidGeneralData.setCity(covidGeneralDataForm.getCity());
+        covidGeneralData.setCityCode(covidGeneralDataForm.getCityCode());
+        covidGeneralData.setLatitude(covidGeneralDataForm.getLatitude());
+        covidGeneralData.setLongitude(covidGeneralDataForm.getLongitude());
+        covidGeneralData.setConfirmed(covidGeneralDataForm.getConfirmed());
+        covidGeneralData.setDeaths(covidGeneralDataForm.getDeaths());
+        covidGeneralData.setRecovered(covidGeneralDataForm.getRecovered());
+        covidGeneralData.setActive(covidGeneralDataForm.getActive());
+        covidGeneralData.setDate(covidGeneralDataForm.getDate());
+        return covidGeneralData;
     }
 
 }

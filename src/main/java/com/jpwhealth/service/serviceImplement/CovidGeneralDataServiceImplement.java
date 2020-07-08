@@ -1,6 +1,8 @@
 package com.jpwhealth.service.serviceImplement;
 
 import com.jpwhealth.domain.CovidGeneralData;
+import com.jpwhealth.domain.form.CovidGeneralDataForm;
+import com.jpwhealth.domain.form.converter.ConverterFormToModel;
 import com.jpwhealth.jpwClient.ApiCovidClient;
 import com.jpwhealth.repository.CovidGeneralDataRepository;
 import com.jpwhealth.service.CovidGeneralDataService;
@@ -33,12 +35,18 @@ public class CovidGeneralDataServiceImplement implements CovidGeneralDataService
     }
 
     @Override
+    public CovidGeneralData registerByRequest(CovidGeneralDataForm covidGeneralDataForm){
+        CovidGeneralData covidGeneralData = ConverterFormToModel.toCovidGeneralData(covidGeneralDataForm);
+        covidGeneralDataRepository.save(covidGeneralData);
+        return covidGeneralData;
+    }
+
+    @Override
     @Async
     public void register() throws InterruptedException {
         while(true){
-            CovidGeneralData covidGeneralData = ApiCovidClient.getCovidGeneralDataTest();
+            CovidGeneralData covidGeneralData = ApiCovidClient.getCovidGeneralData();
             covidGeneralDataRepository.save(covidGeneralData);
-            System.out.println(covidGeneralData.toString());
             Thread.sleep(DAY_IN_MILLISECONS);
         }
 

@@ -36,7 +36,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
 
         ApiInfo apiInfo = new ApiInfoBuilder()
-                .title ("JPW-HEALTH-API")
+                .title ("JPW HEALTH API")
                 .description ("Aplicação que visa auxiliar no combate ao Corona Virús (COVID-19), elaborado durante as aulas do Curso de Análise e Desenvolvimento de Sistemas da Faculdade Senai Porto Alegre.")
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
