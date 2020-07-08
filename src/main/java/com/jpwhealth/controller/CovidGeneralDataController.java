@@ -33,7 +33,7 @@ public class CovidGeneralDataController {
 
     @ApiOperation(value = "Inicia a Thread de mapeamento dos dados da COVID-19", notes = "Inicia a Thread de mapeamento")
     @PostMapping("/covid-19/init")
-    public ResponseEntity initAsyncTask(){
+    public ResponseEntity initAsyncTask() throws InterruptedException {
         covidGeneralDataService.register();
         return ResponseEntity.ok().body("Thread initialized!");
     }
