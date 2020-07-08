@@ -13,7 +13,7 @@ public interface CovidGeneralDataService {
 
     ResponseEntity<CovidGeneralData> getByDate(LocalDateTime date);
 
-    void register() throws InterruptedException;
+    void register();
 
     CovidGeneralData registerByRequest(CovidGeneralDataForm covidGeneralDataForm);
 

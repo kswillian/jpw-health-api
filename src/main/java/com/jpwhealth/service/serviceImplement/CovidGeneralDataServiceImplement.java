@@ -3,12 +3,11 @@ package com.jpwhealth.service.serviceImplement;
 import com.jpwhealth.domain.CovidGeneralData;
 import com.jpwhealth.domain.form.CovidGeneralDataForm;
 import com.jpwhealth.domain.form.converter.ConverterFormToModel;
-import com.jpwhealth.jpwClient.ApiCovidClient;
+import com.jpwhealth.jpwClient.ThreadCovidData;
 import com.jpwhealth.repository.CovidGeneralDataRepository;
 import com.jpwhealth.service.CovidGeneralDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,8 +18,6 @@ public class CovidGeneralDataServiceImplement implements CovidGeneralDataService
 
     @Autowired
     private CovidGeneralDataRepository covidGeneralDataRepository;
-
-    private static Long DAY_IN_MILLISECONS = (long) (24 * 60 * 60 * 1000);
 
     @Override
     public List<CovidGeneralData> getAll() {
@@ -42,14 +39,8 @@ public class CovidGeneralDataServiceImplement implements CovidGeneralDataService
     }
 
     @Override
-    @Async
-    public void register() throws InterruptedException {
-        while(true){
-            CovidGeneralData covidGeneralData = ApiCovidClient.getCovidGeneralData();
-            covidGeneralDataRepository.save(covidGeneralData);
-            Thread.sleep(1000);
-        }
-
+    public void register() {
+        new ThreadCovidData(covidGeneralDataRepository).run();
     }
 
     @Override
