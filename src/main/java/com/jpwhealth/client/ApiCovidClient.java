@@ -1,4 +1,4 @@
-package com.jpwhealth.jpwClient;
+package com.jpwhealth.client;
 
 import com.jpwhealth.domain.CovidGeneralData;
 import org.springframework.boot.web.client.RestTemplateBuilder;

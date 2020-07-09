@@ -2,14 +2,15 @@ package com.jpwhealth.service;
 
 import com.jpwhealth.domain.CovidGeneralData;
 import com.jpwhealth.domain.form.CovidGeneralDataForm;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface CovidGeneralDataService {
 
-    List<CovidGeneralData> getAll();
+    Page<CovidGeneralData> getAll(Pageable pageable);
 
     ResponseEntity<CovidGeneralData> getByDate(LocalDateTime date);
 
