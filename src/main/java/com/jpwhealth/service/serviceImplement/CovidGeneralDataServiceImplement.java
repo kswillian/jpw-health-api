@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class CovidGeneralDataServiceImplement implements CovidGeneralDataService
 
     @Override
     @Async
+    @Scheduled(fixedDelay = 8000)
     public void register() throws InterruptedException {
         CovidGeneralData covidGeneralData = ApiCovidClient.getCovidGeneralData();
         covidGeneralDataRepository.save(covidGeneralData);
